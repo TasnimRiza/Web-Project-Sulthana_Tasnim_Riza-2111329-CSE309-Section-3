@@ -1,0 +1,27 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Results | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="result-hero">
+    <p class="eyebrow">{{ language_meta.label }} result</p>
+    <h1>{{ attempt.score }}/{{ attempt.total_questions }} correct</h1>
+    <p>You reached {{ accuracy }}% accuracy and now have {{ profile.stars }} stars.</p>
+    <p class="help-copy">Exercise type: {{ attempt.exercise_type|title }}</p>
+    <div class="hero-actions">
+        <a class="button primary" href="{% url 'learning:exercise' attempt.language %}">Try Another Standard Round</a>
+        <a class="button secondary" href="{% url 'learning:weak-letter-practice' attempt.language %}">Practice Weak Letters</a>
+        <a class="button secondary" href="{% url 'learning:progress' %}">See Progress</a>
+    </div>
+</section>
+
+<section class="answer-review">
+    {% for answer in attempt.answers %}
+        <article class="review-card {% if answer.is_correct %}good{% else %}needs-work{% endif %}">
+            <h2>{{ answer.prompt }}</h2>
+            <p>Your answer: <strong>{{ answer.selected_answer|default:'No answer' }}</strong></p>
+            <p>Correct answer: <strong>{{ answer.correct_answer }}</strong></p>
+        </article>
+    {% endfor %}
+</section>
+{% endblock %}

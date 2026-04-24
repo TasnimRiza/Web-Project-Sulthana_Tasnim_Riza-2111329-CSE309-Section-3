@@ -1,0 +1,19 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Audio-First Mode | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <div>
+        <p class="eyebrow">Audio-first learning</p>
+        <h1>Listen first, then choose.</h1>
+        <p>This mode reduces text pressure and lets children rely on sound cues, which is especially helpful for low-reading learners.</p>
+    </div>
+</section>
+
+<div class="audio-first-banner panel striped">
+    <p>Tip: Press each sound button before picking the answer. Adults can also keep this mode turned on from the inclusive settings page.</p>
+</div>
+
+{% include 'learning/_exercise_form.html' with mode_label='Audio Practice' %}
+{% endblock %}

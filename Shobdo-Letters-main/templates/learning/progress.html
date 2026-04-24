@@ -1,0 +1,97 @@
+﻿{% extends 'base.html' %}
+{% load learning_tags %}
+
+{% block title %}Progress Dashboard | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <div>
+        <p class="eyebrow">Progress Dashboard</p>
+        <h1>{{ profile.name }} is building steady literacy habits.</h1>
+        <p>Parents and teachers can use this page together with the adult report to support practice at home and in the classroom.</p>
+    </div>
+    <div class="intro-actions">
+        <a class="button secondary" href="{% url 'learning:weak-letter-practice' selected_language %}">Weak-Letter Practice</a>
+        <a class="button secondary" href="{% url 'learning:audio-first-mode' selected_language %}">Audio-First Mode</a>
+        <a class="button secondary" href="{% url 'learning:inclusive-settings' %}">Inclusive Settings</a>
+    </div>
+</section>
+
+<section class="stats-row">
+    <article class="panel warm">
+        <h2>Total stars</h2>
+        <p class="big-number">{{ profile.stars }}</p>
+    </article>
+    <article class="panel cool">
+        <h2>Completion rate</h2>
+        <p class="big-number">{{ completion_rate }}%</p>
+    </article>
+    <article class="panel striped">
+        <h2>Exercise average</h2>
+        <p class="big-number">{{ attempt_summary.avg_score|default:0|floatformat:1 }}</p>
+    </article>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <h2>Language progress</h2>
+        <div class="language-progress-list">
+            {% for key, card in language_cards.items %}
+                <div class="progress-line">
+                    <strong>{{ card.label }}</strong>
+                    <span>{{ progress_counts|get_item:key }}/{{ letters_by_language|get_item:key }} letters completed</span>
+                </div>
+            {% endfor %}
+        </div>
+    </article>
+    <article class="panel">
+        <h2>Weak letters to practice</h2>
+        {% if weak_letters %}
+            <div class="attempt-list">
+                {% for letter in weak_letters %}
+                    <div class="attempt-item">
+                        <strong>{{ letter.symbol }} · {{ letter.word }}</strong>
+                        <span>{{ letter.word_translation }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No weak letters right now. Great progress.</p>
+        {% endif %}
+    </article>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <h2>Recent exercise rounds</h2>
+        {% if recent_attempts %}
+            <div class="attempt-list">
+                {% for attempt in recent_attempts %}
+                    <a href="{% url 'learning:exercise-result' attempt.id %}" class="attempt-item">
+                        <strong>{{ attempt.exercise_type|title }}</strong>
+                        <span>{{ attempt.score }}/{{ attempt.total_questions }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No exercise rounds yet. Start one from the alphabet screen.</p>
+        {% endif %}
+    </article>
+    <article class="panel">
+        <h2>Teacher assignments</h2>
+        {% if active_assignments %}
+            <div class="attempt-list">
+                {% for assignment in active_assignments %}
+                    <div class="attempt-item vertical-item">
+                        <strong>{{ assignment.title }}</strong>
+                        <span>{{ assignment.teacher.display_name }} · {{ assignment.language|title }}</span>
+                        {% if assignment.note %}<span>{{ assignment.note }}</span>{% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No active teacher assignments for this learner yet.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

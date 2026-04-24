@@ -1,0 +1,42 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Inclusive Settings | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <div>
+        <p class="eyebrow">Inclusive learning mode</p>
+        <h1>Adapt the experience for different learning needs.</h1>
+        <p>These settings support children who benefit from larger text, stronger contrast, less clutter, or audio-led learning.</p>
+    </div>
+</section>
+
+<section class="grid-two">
+    <article class="panel warm">
+        <h2>Accessibility preferences</h2>
+        <form method="post" class="stack-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <label class="checkbox-row">
+                    {{ field }}
+                    <span>
+                        <strong>{{ field.label }}</strong>
+                        <small>{{ field.help_text }}</small>
+                    </span>
+                </label>
+            {% endfor %}
+            <button class="button primary" type="submit">Save inclusive settings</button>
+        </form>
+    </article>
+    <article class="panel cool">
+        <h2>What each setting does</h2>
+        <ul class="feature-list">
+            <li>Inclusive mode keeps the whole experience support-focused.</li>
+            <li>Audio-first mode makes listening the main activity before reading.</li>
+            <li>High contrast improves visibility for low-vision learners.</li>
+            <li>Large text makes symbols and labels easier to see.</li>
+            <li>Simplified layout reduces distraction and visual overload.</li>
+        </ul>
+    </article>
+</section>
+{% endblock %}

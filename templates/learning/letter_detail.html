@@ -1,0 +1,52 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ letter.symbol }} | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="detail-layout">
+    <article class="detail-card">
+        <span class="detail-symbol">{{ letter.symbol }}</span>
+        <span class="detail-emoji">{{ letter.emoji }}</span>
+        <h1>{{ letter.word }}</h1>
+        <p class="detail-subtitle">{{ letter.word_translation }}{% if letter.transliteration %} · {{ letter.transliteration }}{% endif %}</p>
+        <p>{{ letter.description }}</p>
+        <div class="hero-actions">
+            <button class="button primary js-speak" type="button" data-text="{{ letter.speech_text }}" data-lang="{% if language == 'bangla' %}bn-BD{% else %}en-US{% endif %}">Play Sound</button>
+            <form method="post">
+                {% csrf_token %}
+                <button class="button secondary" type="submit">Mark Practiced</button>
+            </form>
+        </div>
+        <div class="hero-actions top-gap">
+            <a class="button secondary" href="{% url 'learning:audio-first-mode' language %}">Try Audio-First Mode</a>
+            <a class="button secondary" href="{% url 'learning:weak-letter-practice' language %}">Targeted Practice</a>
+        </div>
+    </article>
+
+    <aside class="panel striped">
+        <h2>Learning snapshot</h2>
+        <dl class="stat-grid compact">
+            <div>
+                <dt>Views</dt>
+                <dd>{{ progress.views_count }}</dd>
+            </div>
+            <div>
+                <dt>Status</dt>
+                <dd>{% if progress.completed %}Complete{% else %}In progress{% endif %}</dd>
+            </div>
+            <div>
+                <dt>Correct</dt>
+                <dd>{{ progress.correct_answers }}</dd>
+            </div>
+            <div>
+                <dt>Needs help</dt>
+                <dd>{{ progress.incorrect_answers }}</dd>
+            </div>
+        </dl>
+        <div class="pager">
+            {% if previous_letter %}<a href="{% url 'learning:letter-detail' language previous_letter.slug %}">Previous</a>{% endif %}
+            {% if next_letter %}<a href="{% url 'learning:letter-detail' language next_letter.slug %}">Next</a>{% endif %}
+        </div>
+    </aside>
+</section>
+{% endblock %}

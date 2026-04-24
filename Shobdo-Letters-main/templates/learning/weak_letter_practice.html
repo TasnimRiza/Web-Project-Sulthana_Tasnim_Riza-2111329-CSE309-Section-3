@@ -1,0 +1,15 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Weak-Letter Practice | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <div>
+        <p class="eyebrow">Targeted support</p>
+        <h1>Weak-letter practice for extra confidence.</h1>
+        <p>This session focuses on letters that need more repetition, helping children close small learning gaps before they grow.</p>
+    </div>
+</section>
+
+{% include 'learning/_exercise_form.html' with mode_label='Weak-Letter Practice' %}
+{% endblock %}

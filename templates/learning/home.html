@@ -1,0 +1,98 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Home | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="hero-panel">
+    <div>
+        <p class="eyebrow">Early literacy with social benefit</p>
+        <h1>Support every child with sound, accessibility, and guided practice.</h1>
+        <p class="hero-copy">This updated version now includes weak-letter practice, inclusive learning tools, audio-first activities, teacher lesson assignments, and parent or teacher reports so families and schools can support literacy together.</p>
+        <div class="hero-actions">
+            <a class="button primary" href="{% url 'learning:alphabet-grid' selected_language %}">Start Learning</a>
+            <a class="button secondary" href="{% url 'learning:weak-letter-practice' selected_language %}">Weak-Letter Practice</a>
+            <a class="button secondary" href="{% url 'learning:audio-first-mode' selected_language %}">Audio-First Mode</a>
+        </div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-card-top">
+            <span>Current learner</span>
+            <strong>{{ profile.name }}</strong>
+        </div>
+        <dl class="stat-grid compact">
+            <div>
+                <dt>Stars</dt>
+                <dd>{{ profile.stars }}</dd>
+            </div>
+            <div>
+                <dt>Completed</dt>
+                <dd>{{ learned_count }}/{{ total_letters }}</dd>
+            </div>
+            <div>
+                <dt>Weak letters</dt>
+                <dd>{{ weak_letter_count }}</dd>
+            </div>
+            <div>
+                <dt>Assignments</dt>
+                <dd>{{ assignment_count }}</dd>
+            </div>
+        </dl>
+    </div>
+</section>
+
+<section class="grid-two">
+    <article class="panel warm">
+        <h2>Set up the learner profile</h2>
+        <form method="post" class="stack-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="save-profile">
+            <label>
+                Name
+                <input type="text" name="name" value="{{ profile.name }}" placeholder="Little Learner">
+            </label>
+            <label>
+                Age group
+                <select name="age_group">
+                    <option value="" {% if not profile.age_group %}selected{% endif %}>Select age</option>
+                    <option value="3-4" {% if profile.age_group == '3-4' %}selected{% endif %}>3-4</option>
+                    <option value="5-6" {% if profile.age_group == '5-6' %}selected{% endif %}>5-6</option>
+                    <option value="7+" {% if profile.age_group == '7+' %}selected{% endif %}>7+</option>
+                </select>
+            </label>
+            <label>
+                Learning language
+                <select name="language">
+                    {% for key, card in language_cards.items %}
+                        <option value="{{ key }}" {% if selected_language == key %}selected{% endif %}>{{ card.label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <button class="button primary" type="submit">Save and continue</button>
+        </form>
+
+        {% if request.user.is_authenticated and adult_profile and adult_profile.role == 'parent' and not profile.owner %}
+            <form method="post" class="inline-form">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="claim-child">
+                <button class="button secondary" type="submit">Link this learner to my parent account</button>
+            </form>
+        {% endif %}
+    </article>
+
+    <article class="panel cool">
+        <h2>Social-benefit features in this build</h2>
+        <ul class="feature-list">
+            <li>Weak-letter practice for children who need extra support</li>
+            <li>Inclusive mode with large text, contrast, and simplified layout</li>
+            <li>Audio-first activities for early readers and low-reading learners</li>
+            <li>Teacher lesson assignment for structured classroom guidance</li>
+            <li>Parent and teacher progress reports for shared support</li>
+        </ul>
+        {% if request.user.is_authenticated %}
+            <a class="button secondary" href="{% url 'learning:adult-report' %}">Open adult report</a>
+        {% else %}
+            <p class="help-copy">Parents and teachers can create an account to view reports and manage assignments.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

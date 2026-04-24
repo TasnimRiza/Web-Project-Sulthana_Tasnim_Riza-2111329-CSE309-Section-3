@@ -1,0 +1,36 @@
+﻿{% extends 'base.html' %}
+{% load learning_tags %}
+
+{% block title %}{{ language_meta.label }} Letters | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <div>
+        <p class="eyebrow">{{ language_meta.label }} mode</p>
+        <h1>{{ language_meta.hero_title }}</h1>
+        <p>{{ language_meta.voice_hint }}</p>
+    </div>
+    <div class="intro-actions">
+        <a class="button secondary" href="{% url 'learning:switch-language' 'english' %}">English</a>
+        <a class="button secondary" href="{% url 'learning:switch-language' 'bangla' %}">Bangla</a>
+        <a class="button primary" href="{% url 'learning:exercise' language %}">Standard Exercise</a>
+        <a class="button secondary" href="{% url 'learning:weak-letter-practice' language %}">Weak-Letter Practice</a>
+        <a class="button secondary" href="{% url 'learning:audio-first-mode' language %}">Audio-First Mode</a>
+    </div>
+</section>
+
+<section class="letter-grid">
+    {% for letter in letters %}
+        {% with progress=progress_map|get_item:letter.id %}
+            <a class="letter-card {% if progress and progress.completed %}done{% endif %} {% if letter.id in weak_letter_ids %}focus-card{% endif %}" href="{% url 'learning:letter-detail' language letter.slug %}">
+                <span class="symbol">{{ letter.symbol }}</span>
+                <span class="emoji">{{ letter.emoji }}</span>
+                <strong>{{ letter.word }}</strong>
+                <small>{{ letter.word_translation }}</small>
+                {% if letter.id in weak_letter_ids %}<span class="callout-tag">Practice More</span>{% endif %}
+                <span class="pill">Viewed {{ progress.views_count|default:0 }} times</span>
+            </a>
+        {% endwith %}
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Adult Sign Up | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="auth-shell panel warm">
+    <p class="eyebrow">Parent and teacher access</p>
+    <h1>Create an adult account</h1>
+    <p>This account is for parents and teachers who want reports, assignments, and sign-in support.</p>
+    <form method="post" class="stack-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button primary" type="submit">Create account</button>
+    </form>
+    <p class="help-copy">Already have an account? <a href="{% url 'learning:sign-in' %}">Sign in</a>.</p>
+</section>
+{% endblock %}

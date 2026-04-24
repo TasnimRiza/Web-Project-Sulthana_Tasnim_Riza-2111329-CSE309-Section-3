@@ -1,0 +1,41 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Teacher Assignments | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <div>
+        <p class="eyebrow">Teacher lesson assignment</p>
+        <h1>Guide learners with focused tasks.</h1>
+        <p>Create small, manageable assignments so children can practice the right letters with support from teachers and parents.</p>
+    </div>
+</section>
+
+<section class="grid-two teacher-layout">
+    <article class="panel warm">
+        <h2>Create a lesson assignment</h2>
+        <form method="post" class="stack-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button primary" type="submit">Save assignment</button>
+        </form>
+    </article>
+    <article class="panel cool">
+        <h2>Your active assignments</h2>
+        {% if assignments %}
+            <div class="attempt-list">
+                {% for assignment in assignments %}
+                    <div class="attempt-item vertical-item">
+                        <strong>{{ assignment.title }}</strong>
+                        <span>{{ assignment.child.name }} · {{ assignment.language|title }}</span>
+                        {% if assignment.due_date %}<span>Due {{ assignment.due_date }}</span>{% endif %}
+                        {% if assignment.note %}<span>{{ assignment.note }}</span>{% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No assignments yet. Create the first one here.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Exercise | Shobdo & Letters{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <div>
+        <p class="eyebrow">{{ language_meta.label }} practice</p>
+        <h1>Five tiny questions, one confident learner.</h1>
+        <p>Each round stays short, playful, and focused. Tap the sound button before choosing an answer.</p>
+    </div>
+</section>
+
+<form method="post" class="exercise-stack">
+    {% csrf_token %}
+    {% for question in questions %}
+        <article class="question-card">
+            <div class="question-head">
+                <span class="question-index">{{ forloop.counter }}</span>
+                <div>
+                    <h2>{{ question.prompt }}</h2>
+                    <p>{{ question.emoji }} {{ question.word }}</p>
+                </div>
+                <button class="button ghost js-speak" type="button" data-text="{{ question.speech_text }}" data-lang="{% if language == 'bangla' %}bn-BD{% else %}en-US{% endif %}">Hear It</button>
+            </div>
+            <div class="option-grid">
+                {% for option in question.options %}
+                    <label class="option-pill">
+                        <input type="radio" name="question_{{ question.id }}" value="{{ option }}" required>
+                        <span>{{ option }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </article>
+    {% endfor %}
+    <button class="button primary wide" type="submit">Finish Exercise</button>
+</form>
+{% endblock %}

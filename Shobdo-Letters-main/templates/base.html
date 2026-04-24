@@ -1,0 +1,58 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Shobdo & Letters{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'learning/css/styles.css' %}">
+    <script defer src="{% static 'learning/js/app.js' %}"></script>
+</head>
+<body class="{{ accessibility_classes }}">
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="{% url 'learning:home' %}">
+                <span class="brand-mark">SL</span>
+                <span>
+                    <strong>Shobdo & Letters</strong>
+                    <small>Playful bilingual alphabet learning</small>
+                </span>
+            </a>
+            <nav class="main-nav">
+                <a href="{% url 'learning:alphabet-grid' 'english' %}">English</a>
+                <a href="{% url 'learning:alphabet-grid' 'bangla' %}">Bangla</a>
+                <a href="{% url 'learning:progress' %}">Child Progress</a>
+                <a href="{% url 'learning:inclusive-settings' %}">Inclusive Mode</a>
+                {% if request.user.is_authenticated %}
+                    {% if adult_session_profile %}
+                        <a href="{% url 'learning:adult-report' %}">Adult Report</a>
+                        {% if adult_session_profile.role == 'teacher' %}
+                            <a href="{% url 'learning:teacher-assignments' %}">Assignments</a>
+                        {% endif %}
+                    {% endif %}
+                    <a href="{% url 'learning:sign-out' %}">Sign Out</a>
+                {% else %}
+                    <a href="{% url 'learning:sign-in' %}">Sign In</a>
+                    <a href="{% url 'learning:sign-up' %}">Adult Sign Up</a>
+                {% endif %}
+                <a href="/admin/">Admin</a>
+            </nav>
+        </header>
+
+        {% if messages %}
+            <section class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
