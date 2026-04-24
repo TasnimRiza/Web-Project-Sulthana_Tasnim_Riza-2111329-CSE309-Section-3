@@ -1,0 +1,5 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Quizzes</h1><a class="btn btn-primary" href="{% url 'quizzes:create' %}">Generate Quiz</a></div>
+<div class="row g-3">{% for quiz in quizzes %}<div class="col-md-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">{{ quiz.subject }}: {{ quiz.chapter }}</h2><p class="text-muted">{{ quiz.student }}</p><span class="badge text-bg-info">{{ quiz.questions.count }} questions</span><a class="btn btn-sm btn-outline-primary ms-2" href="{% url 'quizzes:reward' quiz.pk %}">Award Reward</a></div></div></div>{% empty %}<p class="text-muted">No quizzes.</p>{% endfor %}</div>
+{% endblock %}

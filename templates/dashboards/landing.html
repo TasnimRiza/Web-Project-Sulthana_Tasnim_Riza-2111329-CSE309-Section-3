@@ -1,0 +1,11 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<section class="smms-hero rounded-3 p-5 text-white">
+  <div class="col-lg-7">
+    <p class="text-uppercase fw-semibold small">Rural primary education</p>
+    <h1 class="display-5 fw-bold">School Monitoring and Management System</h1>
+    <p class="lead">A centralized role-based platform for attendance, academics, stipends, inspections, communication, reports, and transparent governance.</p>
+    <a class="btn btn-light btn-lg" href="{% url 'accounts:login' %}">Enter Portal</a>
+  </div>
+</section>
+{% endblock %}

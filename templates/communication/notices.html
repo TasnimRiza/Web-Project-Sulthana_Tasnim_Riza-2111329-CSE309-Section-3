@@ -1,0 +1,5 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Notices</h1><a class="btn btn-primary" href="{% url 'communication:notice-create' %}">Publish</a></div>
+<div class="row g-3">{% for notice in notices %}<div class="col-md-6"><div class="card shadow-sm"><div class="card-body"><span class="badge text-bg-light">{{ notice.target_role }}</span><h2 class="h5 mt-2">{{ notice.title }}</h2><p>{{ notice.body }}</p><small class="text-muted">{{ notice.created_at }}</small></div></div></div>{% empty %}<p class="text-muted">No notices.</p>{% endfor %}</div>
+{% endblock %}

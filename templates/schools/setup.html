@@ -1,0 +1,17 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<h1 class="h3 mb-4">Academic Setup</h1>
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card metric"><span>Schools</span><strong>{{ schools }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Classes</span><strong>{{ classrooms }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Sections</span><strong>{{ sections }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Subjects</span><strong>{{ subjects }}</strong></div></div>
+</div>
+<div class="d-flex flex-wrap gap-2">
+  <a class="btn btn-primary" href="{% url 'schools:school-create' %}">Add School</a>
+  <a class="btn btn-outline-primary" href="{% url 'schools:academic-year-create' %}">Academic Year</a>
+  <a class="btn btn-outline-primary" href="{% url 'schools:classroom-create' %}">Class</a>
+  <a class="btn btn-outline-primary" href="{% url 'schools:section-create' %}">Section</a>
+  <a class="btn btn-outline-primary" href="{% url 'schools:subject-create' %}">Subject</a>
+</div>
+{% endblock %}

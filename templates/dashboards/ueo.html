@@ -1,0 +1,12 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<h1 class="h3 mb-4">UEO Portal</h1>
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card metric"><span>Schools</span><strong>{{ schools_count }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Students</span><strong>{{ students_count }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Alerts</span><strong>{{ low_attendance_count }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Inspections</span><strong>{{ inspections|length }}</strong></div></div>
+</div>
+<a class="btn btn-primary" href="{% url 'inspections:create' %}">Schedule Inspection</a>
+<a class="btn btn-outline-primary" href="{% url 'reports:center' %}">View Reports</a>
+{% endblock %}

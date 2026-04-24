@@ -1,0 +1,5 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Stipends</h1><a class="btn btn-primary" href="{% url 'stipend:create' %}">New Application</a></div>
+<div class="card shadow-sm"><table class="table mb-0"><thead><tr><th>Student</th><th>Attendance</th><th>GPA</th><th>Status</th><th></th></tr></thead><tbody>{% for app in applications %}<tr><td>{{ app.student }}</td><td>{{ app.eligibility.attendance_percent|default:"-" }}</td><td>{{ app.eligibility.gpa|default:"-" }}</td><td>{{ app.status }}</td><td><a href="{% url 'stipend:validate' app.pk %}">Validate</a></td></tr>{% empty %}<tr><td colspan="5" class="p-4 text-muted">No stipend applications.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

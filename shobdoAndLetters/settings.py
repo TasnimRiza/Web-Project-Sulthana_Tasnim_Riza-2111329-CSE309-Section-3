@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get(
 )
 DEBUG = "RENDER" not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "testserver"]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -24,6 +24,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "accounts",
+    "schools",
+    "students",
+    "attendance",
+    "academics",
+    "leave_management",
+    "stipend",
+    "communication",
+    "inspections",
+    "quizzes",
+    "dashboards",
+    "reports",
+    "audit",
     "learning",
 ]
 
@@ -88,8 +101,11 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
-LOGIN_URL = "learning:sign-in"
-LOGIN_REDIRECT_URL = "learning:home"
-LOGOUT_REDIRECT_URL = "learning:home"
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "dashboards:home"
+LOGOUT_REDIRECT_URL = "accounts:login"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

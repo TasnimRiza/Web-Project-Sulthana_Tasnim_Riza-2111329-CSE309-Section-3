@@ -1,0 +1,11 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<h1 class="h3 mb-4">Report Center</h1>
+<div class="row g-3">
+  <div class="col-md-4"><a class="card action-card" href="{% url 'reports:attendance-csv' %}">Attendance CSV</a></div>
+  <div class="col-md-4"><a class="card action-card" href="{% url 'reports:marks-csv' %}">Marksheets CSV</a></div>
+  <div class="col-md-4"><a class="card action-card" href="{% url 'reports:progress-csv' %}">Student Progress CSV</a></div>
+  <div class="col-md-4"><a class="card action-card" href="{% url 'reports:stipend-csv' %}">Stipend CSV</a></div>
+  <div class="col-md-4"><a class="card action-card" href="{% url 'reports:inspection-csv' %}">Inspection CSV</a></div>
+</div>
+{% endblock %}

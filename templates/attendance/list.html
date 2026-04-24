@@ -1,0 +1,8 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Attendance</h1><a class="btn btn-primary" href="{% url 'attendance:take' %}">Take Attendance</a></div>
+<div class="card shadow-sm"><div class="table-responsive"><table class="table mb-0">
+  <thead><tr><th>Date</th><th>Class</th><th>Taken By</th><th>Present</th><th>Status</th><th></th></tr></thead>
+  <tbody>{% for sheet in sheets %}<tr><td>{{ sheet.date }}</td><td>{{ sheet.classroom }}</td><td>{{ sheet.taken_by }}</td><td>{% if sheet.has_low_attendance_alert %}<span class="badge text-bg-warning">{{ sheet.present_percentage }}%</span>{% else %}{{ sheet.present_percentage }}%{% endif %}</td><td>{{ sheet.verification_status }}</td><td><a href="{% url 'attendance:verify' sheet.pk 'approve' %}">Approve</a> · <a href="{% url 'attendance:verify' sheet.pk 'reject' %}">Reject</a></td></tr>{% empty %}<tr><td colspan="6" class="p-4 text-muted">No attendance sheets.</td></tr>{% endfor %}</tbody>
+</table></div></div>
+{% endblock %}

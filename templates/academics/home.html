@@ -1,0 +1,8 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Academics</h1><div class="d-flex gap-2"><a class="btn btn-primary" href="{% url 'academics:mark-create' %}">Enter Marks</a><a class="btn btn-outline-primary" href="{% url 'academics:syllabus-create' %}">Syllabus</a><a class="btn btn-outline-primary" href="{% url 'academics:activity-create' %}">Activity</a></div></div>
+<div class="row g-3">
+  <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Recent Marks</h2><table class="table"><tbody>{% for mark in marks %}<tr><td>{{ mark.student }}</td><td>{{ mark.subject }}</td><td>{{ mark.total }}</td><td>{{ mark.verification_status }}</td><td><a href="{% url 'academics:mark-verify' mark.pk 'approve' %}">Approve</a></td></tr>{% empty %}<tr><td class="text-muted">No marks.</td></tr>{% endfor %}</tbody></table></div></div></div>
+  <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Syllabus Progress</h2>{% for item in syllabus %}<div class="mb-3"><div class="d-flex justify-content-between"><span>{{ item.chapter }}</span><span>{{ item.progress_percent }}%</span></div><div class="progress"><div class="progress-bar {% if item.is_delayed %}bg-warning{% endif %}" style="width: {{ item.progress_percent }}%"></div></div></div>{% empty %}<p class="text-muted">No syllabus updates.</p>{% endfor %}</div></div></div>
+</div>
+{% endblock %}

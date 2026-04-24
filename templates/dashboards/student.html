@@ -1,0 +1,19 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<div class="edukids-header rounded-3 p-4 mb-4">
+  <h1 class="h2 mb-1">EduKids Portal</h1>
+  <p class="mb-0">Attendance, marks, progress, rewards, stipends, and quizzes in one friendly space.</p>
+</div>
+<div class="row g-3">
+  <div class="col-md-4"><a class="card action-card" href="{% url 'quizzes:list' %}">Quizzes and Rewards</a></div>
+  <div class="col-md-4"><a class="card action-card" href="{% url 'stipend:list' %}">Stipend Status</a></div>
+  <div class="col-md-4"><a class="card action-card" href="{% url 'communication:notices' %}">Notices</a></div>
+</div>
+{% if student %}
+<div class="card mt-4 shadow-sm"><div class="card-body">
+  <h2 class="h5">{{ student.name }}</h2>
+  <div class="progress mb-2"><div class="progress-bar" style="width: {{ student.attendance_percentage }}%">{{ student.attendance_percentage }}%</div></div>
+  <span class="badge text-bg-success">GPA {{ student.average_gpa }}</span>
+</div></div>
+{% endif %}
+{% endblock %}

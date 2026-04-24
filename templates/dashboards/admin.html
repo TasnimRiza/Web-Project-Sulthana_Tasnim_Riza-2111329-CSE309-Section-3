@@ -1,0 +1,16 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<h1 class="h3 mb-4">Admin Portal</h1>
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card metric"><span>Schools</span><strong>{{ schools_count }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Students</span><strong>{{ students_count }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Pending Reviews</span><strong>{{ pending_attendance|add:pending_marks }}</strong></div></div>
+  <div class="col-md-3"><div class="card metric"><span>Alerts</span><strong>{{ low_attendance_count }}</strong></div></div>
+</div>
+<div class="d-flex flex-wrap gap-2">
+  <a class="btn btn-primary" href="{% url 'accounts:register' %}">Create User</a>
+  <a class="btn btn-outline-primary" href="{% url 'schools:setup' %}">Academic Setup</a>
+  <a class="btn btn-outline-primary" href="{% url 'audit:logs' %}">Audit Logs</a>
+  <a class="btn btn-outline-secondary" href="/admin/">Django Admin</a>
+</div>
+{% endblock %}

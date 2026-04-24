@@ -1,0 +1,68 @@
+body {
+  background: #f6f8fb;
+  color: #172033;
+}
+
+.smms-hero {
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(11, 78, 143, 0.92), rgba(39, 139, 104, 0.78)),
+    url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80") center/cover;
+}
+
+.metric {
+  padding: 1rem;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(23, 32, 51, 0.08);
+}
+
+.metric span {
+  color: #667085;
+  font-size: 0.9rem;
+}
+
+.metric strong {
+  display: block;
+  font-size: 2rem;
+}
+
+.edukids-header {
+  background: linear-gradient(135deg, #ffe082, #8ce3ff 55%, #b7f7c2);
+  color: #17324d;
+}
+
+.action-card {
+  padding: 1.25rem;
+  color: inherit;
+  text-decoration: none;
+  min-height: 96px;
+  justify-content: center;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(23, 32, 51, 0.08);
+}
+
+.card {
+  border-radius: 8px;
+}
+
+form p {
+  margin-bottom: 0;
+}
+
+form p label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+form p input,
+form p select,
+form p textarea {
+  width: 100%;
+  display: block;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+}

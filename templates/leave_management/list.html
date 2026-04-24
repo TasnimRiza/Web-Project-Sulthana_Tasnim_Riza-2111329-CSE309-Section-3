@@ -1,0 +1,5 @@
+{% extends "smms/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Leave Requests</h1><a class="btn btn-primary" href="{% url 'leave_management:create' %}">Request Leave</a></div>
+<div class="card shadow-sm"><table class="table mb-0"><tbody>{% for leave in leaves %}<tr><td>{{ leave.teacher }}</td><td>{{ leave.starts_on }} to {{ leave.ends_on }}</td><td>{{ leave.status }}</td><td><a href="{% url 'leave_management:review' leave.pk 'approve' %}">Approve</a> · <a href="{% url 'leave_management:review' leave.pk 'reject' %}">Reject</a></td></tr>{% empty %}<tr><td class="p-4 text-muted">No leave requests.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}
